@@ -1,28 +1,33 @@
-import { useState, } from "react"
+import { useEffect, useState, } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { postAdded } from "./postsSlice"
+import { fetchUsers } from "../users/usersSlice"
+import { createPost } from "./postsSlice"
 
 export const AddPostForm = () => {
     const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
+    const [body, setBody] = useState('')
     const [userId, setUserId] = useState('')
 
     const dispatch = useDispatch()
     const users = useSelector(state => state.users)
 
+    useEffect(() => {
+        dispatch(fetchUsers())
+    }, [dispatch])
+
     const onTitleChanged = (e) => setTitle(e.target.value)
-    const onContentChanged = e => setContent(e.target.value)
+    const onContentChanged = e => setBody(e.target.value)
     const onAuthorChanged = e => setUserId(e.target.value)
 
     const onSavePostClicked = e => {
-        if (title && content) {
-            dispatch(postAdded(title, content, userId))
+        if (title && body) {
+            dispatch(createPost({ title, body, userId }))
             setTitle('')
-            setContent('')
+            setBody('')
         }
     }
 
-    const canSave = !!title && !!content && !!userId
+    const canSave = !!title && !!body && !!userId
 
     const usersOptions = users.map((user) => (
         <option key={user.id} value={user.id}>
@@ -51,7 +56,7 @@ export const AddPostForm = () => {
                 <textarea
                     id="postContent"
                     name="postContent"
-                    value={content}
+                    value={body}
                     onChange={onContentChanged}
                 />
                 <button type="button" onClick={onSavePostClicked} disabled={!canSave}>

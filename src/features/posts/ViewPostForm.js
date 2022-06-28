@@ -1,13 +1,12 @@
 import React from "react";
 import { useSelector } from 'react-redux'
 import { Link, useParams } from "react-router-dom";
-import { ReactionButtons } from "./ReactionButtons";
-import { TimeAgo } from "./TimeAgo";
-import { PostAuthor } from "./PostAuthor";
+import { UserForm } from "../users/UserForm";
+import { selectPostById } from "./postsSlice";
 
-export const SinglePostPage = () => {
+export const ViewPostForm = () => {
     const { postId } = useParams()
-    const post = useSelector(state => state.posts.find(post => post.id === postId))
+    const post = useSelector(state => selectPostById(state, postId))
 
     if (!post) {
         return (
@@ -21,11 +20,9 @@ export const SinglePostPage = () => {
             <article className="post">
                 <h2>{post.title}</h2>
                 <div>
-                    <PostAuthor userId={post.user} />
-                    <TimeAgo timestamp={post.date} />
+                    <UserForm userId={post.userId} />
                 </div>
-                <p className="post-content">{post.content}</p>
-                <ReactionButtons post={post} />
+                <p className="post-content">{post.body}</p>
                 <Link to={`/editPost/${post.id}`} className="button">
                     Edit Post
                 </Link>
