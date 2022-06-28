@@ -46,9 +46,10 @@ export const AddPostForm = () => {
                     name="postTitle"
                     value={title}
                     onChange={onTitleChanged}
+                    aria-label="postTitle"
                 />
                 <label htmlFor="postAuthor">Author:</label>
-                <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
+                <select id="postAuthor" value={userId} onChange={onAuthorChanged} aria-label="postAuthor">
                     <option value=""></option>
                     {usersOptions}
                 </select>
@@ -58,6 +59,7 @@ export const AddPostForm = () => {
                     name="postContent"
                     value={body}
                     onChange={onContentChanged}
+                    aria-label="postContent"
                 />
                 <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
                     Save Post
