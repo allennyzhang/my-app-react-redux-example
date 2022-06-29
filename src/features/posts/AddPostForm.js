@@ -6,7 +6,7 @@ import { createPost } from "./postsSlice"
 export const AddPostForm = () => {
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
-    const [userId, setUserId] = useState('')
+    const [userId, setUserId] = useState(0)
 
     const dispatch = useDispatch()
     const users = useSelector(state => state.users)
@@ -17,7 +17,7 @@ export const AddPostForm = () => {
 
     const onTitleChanged = (e) => setTitle(e.target.value)
     const onContentChanged = e => setBody(e.target.value)
-    const onAuthorChanged = e => setUserId(e.target.value)
+    const onAuthorChanged = e => setUserId(parseInt(e.target.value))
 
     const onSavePostClicked = e => {
         if (title && body) {
