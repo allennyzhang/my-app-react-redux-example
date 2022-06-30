@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { UserForm } from "../users/UserForm";
 import { selectPostById } from "./postsSlice";
 
-export const ViewPostForm = () => {
+const ViewPostForm = () => {
     const { postId } = useParams()
     const post = useSelector(state => selectPostById(state, postId))
 
@@ -30,3 +30,5 @@ export const ViewPostForm = () => {
         </section>
     )
 }
+
+export default ViewPostForm

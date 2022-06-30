@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { postUpdate } from "./postsSlice";
 
-export const EditPostForm = () => {
+const EditPostForm = () => {
     const { postId } = useParams()
 
     const post = useSelector(state => state.posts.posts.find(post => post.id.toString() === postId))
@@ -51,3 +51,5 @@ export const EditPostForm = () => {
         </section>
     )
 }
+
+export default EditPostForm
